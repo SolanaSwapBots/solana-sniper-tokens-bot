@@ -339,12 +339,41 @@ async function sell(accountId: PublicKey, mint: PublicKey, amount: BigNumberish,
         return true;
       }
 
-      // check st/tp
       if (tokenAccount.buyValue === undefined) return true;
 
-      const netChange = (value - tokenAccount.buyValue) / tokenAccount.buyValue;
-      if (netChange > STOP_LOSS && netChange < TAKE_PROFIT) return false;
-
+      const netChange = ((value - tokenAccount.buyValue) / tokenAccount.buyValue) * 100;
+      
+      if (netChange <= -STOP_LOSS) {
+        logger.info(
+          {
+            mint: tokenAccount.mint,
+            stopLossConfigured: `${STOP_LOSS}%`,
+            netChange: `${netChange.toFixed(2)}%`,
+          },
+          `Stop Loss atingido. Vendendo token.`
+        );
+      } else if (netChange >= TAKE_PROFIT) {
+        logger.info(
+          {
+            mint: tokenAccount.mint,
+            takeProfitConfigured: `${TAKE_PROFIT}%`,
+            netChange: `${netChange.toFixed(2)}%`,
+          },
+          `Take Profit atingido. Vendendo token.`
+        );
+      } else {
+        logger.info(
+          {
+            mint: tokenAccount.mint,
+            takeProfitConfigured: `${TAKE_PROFIT}%`,
+            stopLossConfigured: `${STOP_LOSS}%`,
+            netChange: `${netChange.toFixed(2)}%`,
+          },
+          `Variação atual fora dos limites. Mantendo token.`
+        );
+        return false;
+      }
+      
       const { innerTransaction } = Liquidity.makeSwapFixedInInstruction(
         {
           poolKeys: tokenAccount.poolKeys!,
