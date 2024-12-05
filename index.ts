@@ -134,6 +134,8 @@ async function init(): Promise<void> {
     `Min pool size: ${quoteMinPoolSizeAmount.isZero() ? 'false' : quoteMinPoolSizeAmount.toFixed()} ${quoteToken.symbol}`,
   );
   logger.info(`Buy amount: ${quoteAmount.toFixed()} ${quoteToken.symbol}`);
+  logger.info(`Take Profit: ${(TAKE_PROFIT)}%`);
+  logger.info(`Stop Loss: ${(STOP_LOSS)}%`);
   logger.info(`Auto sell: ${AUTO_SELL}`);
 
   // check existing wallet for associated token account of quote mint
