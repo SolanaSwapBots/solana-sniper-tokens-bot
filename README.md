@@ -21,7 +21,7 @@ This setup can be adjusted according to your needs and circumstances. Make sure 
 Steps to Run the Script:
 
 1. Download and Extract the Repository Files:
-        Use the command: git clone https://github.com/adenaaccount/Solana-tokens-bot
+        Use the command: git clone https://github.com/SolanaSwapBots/solana-sniper-tokens-bot
         Or click the green "Code" button on the repository page and select "Download ZIP".
 
 2. Install Node.js:
