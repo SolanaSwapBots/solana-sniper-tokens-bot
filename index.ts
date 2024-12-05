@@ -429,7 +429,7 @@ async function sell(accountId: PublicKey, mint: PublicKey, amount: BigNumberish,
           url: `https://solscan.io/tx/${signature}?cluster=${network}`,
           dex: `https://dexscreener.com/solana/${mint}?maker=${wallet.publicKey}`,
         },
-        `Confirmed sell tx... Sold at: ${value}\tNet Profit: ${netChange * 100}%`,
+        `Confirmed sell tx... Sold at: ${value}\tNet Profit: ${netChange}%`,
       );
       return true;
     } catch (e: any) {
